@@ -1,0 +1,17 @@
+sudo tee /etc/systemd/system/telegram-bot.service > /dev/null << 'EOF'
+[Unit]
+Description=Telegram Bot (python-telegram-bot, bot_ui.py)
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/ubuntu/bot
+ExecStart=/home/ubuntu/bot/.venv/bin/python /home/ubuntu/bot/bot_ui.py
+Restart=always
+RestartSec=5
+User=ubuntu
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
+EOF
